@@ -15,8 +15,7 @@ driver.get(page)
 content = driver.page_source
 data = BeautifulSoup(content, features = "html.parser")
 
-person_table = data.findAll('tr', attrs={})
-for row in person_table:
+for row in data.findAll('tr', attrs={})
     keys = row.findAll('td', attrs={})
     value = (keys[1]).text.strip()
     person.append(value)
