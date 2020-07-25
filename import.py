@@ -11,7 +11,8 @@ index = 0
 
 driver.get(page)
 
-# start with one person and all their attrs.
+# TODO: start with one person and record their attrs.
+# click on the person's link here
 content = driver.page_source
 data = BeautifulSoup(content, features = "html.parser")
 
