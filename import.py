@@ -4,15 +4,15 @@ from bs4 import BeautifulSoup
 import pandas as pd
 
 driver = webdriver.Chrome(ChromeDriverManager().install())
-# TODO: fill in page
-page = "https://www.mass.gov/service-details/missing-persons"
-person = []
-index = 0
+
+page = "https://podcasts.apple.com/us/podcast/small-town-murder/id1194755213"
+
+title = []
+description = []
 
 driver.get(page)
 
-# TODO: start with one person and record their attrs.
-# click on the person's link here
+# TODO: start with one episode and record attrs.
 content = driver.page_source
 data = BeautifulSoup(content, features = "html.parser")
 
