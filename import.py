@@ -1,6 +1,7 @@
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
+import re
 import pandas as pd
 
 
@@ -20,27 +21,27 @@ def data_import():
 
 # TODO: Remove titles starting with "Bonus", ending in "- Part: 2", "- Part:1"
 # TODO: Incorporate more titles and the towns
-def states(list):
-    states = []
+def location(list):
+    locations = []
     index = 0
     for title in list:
-    # find LAST comma in the title
-        split_title = title.split(",")
-        last_index = len(split_title)-1
-        state = split_title[last_index].strip()
-        states.append(state)
-    return states
+    # find LAST "in" in the title (as a full word)
+        split_title = re.search('(?<=in)( \w+)*', title)
+        index_of_location = split_title.start(0)
+        location = title[index_of_location:].strip()
+        locations.append(location)
+    return locations
 
 def ranking(list):
-    state_count = {}
-    for state in list:
-        if state in state_count:
-            state_count[state] += 1
+    loc_count = {}
+    for loc in list:
+        if loc in loc_count:
+            loc_count[loc] += 1
         else:
-            state_count[state] = 1
-    return state_count
+            loc_count[loc] = 1
+    return loc_count
 
 # Program
-print(ranking(states(data_import())))
+print(ranking(location(data_import())))
 # df = pd.DataFrame({'Titles': data_import()})
 # df.to_csv('titles.csv', index=False, encoding='utf-8')
