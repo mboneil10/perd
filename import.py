@@ -2,6 +2,7 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 import re
+import time
 import pandas as pd
 
 
@@ -30,6 +31,7 @@ def location(list):
         index_of_location = split_title.start(0)
         location = title[index_of_location:].strip()
         locations.append(location)
+        time.sleep(5)
     return locations
 
 def ranking(list):
