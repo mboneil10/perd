@@ -8,7 +8,7 @@ import pandas as pd
 # Functions
 def data_import():
     titles = []
-    i = 2 # set to 18 for full list
+    i = 1 # set to 18 for full list
     driver = webdriver.Chrome(ChromeDriverManager().install())
     page = "https://podcasts.apple.com/us/podcast/small-town-murder/id1194755213"
     driver.get(page)
@@ -27,7 +27,7 @@ def data_import():
     driver.close()
     return titles
 
-# TODO: Remove titles starting with "Bonus", ending in "- Part: 2", "- Part:1"
+# TODO: Remove titles starting with "Bonus", ending in "- Part: 2", "- Part: 1"
 # TODO: Incorporate more titles and the towns
 def location(list):
     locations = []
@@ -52,6 +52,6 @@ def ranking(list):
 
 # Program
 
-print(ranking(location(data_import())))
+# print(ranking(location(data_import())))
 # df = pd.DataFrame({'Titles': data_import()})
 # df.to_csv('titles.csv', index=False, encoding='utf-8')
