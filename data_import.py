@@ -8,17 +8,21 @@ import pandas as pd
 # Functions
 def data_import():
     titles = []
-    i = 20
+    i = 2 # set to 18 for full list
     driver = webdriver.Chrome(ChromeDriverManager().install())
-    page = "https://www.stitcher.com/podcast/crime-in-sports/small-town-murder"
+    page = "https://podcasts.apple.com/us/podcast/small-town-murder/id1194755213"
     driver.get(page)
     while i > 0:
-        driver.find_element_by_class_name('loadMore').click()
+        # wait for the next "Load more episodes" button to appear
+        time.sleep(4)
+        # TODO: rewrite this line so it's a bit cleaner
+        # There are three buttons found, the one in the middle is the button we want to click.
+        (driver.find_elements_by_css_selector('button.link'))[1].click()
         i = i - 1
     content = driver.page_source
     data = BeautifulSoup(content, features="html.parser")
-    for episode in data.findAll('div', attrs={'id': 'episodeContainer'}):
-        title = episode.find('a', attrs={'class': 'title'}).text.strip()
+    for episode in data.findAll('div', attrs={'class': 'tracks__track__content'}):
+        title = episode.find('a', attrs={'class': 'tracks__track__link--block'}).text.strip()
         titles.append(title)
     driver.close()
     return titles
@@ -47,7 +51,7 @@ def ranking(list):
     return loc_count
 
 # Program
-print(data_import())
-# print(ranking(location(data_import())))
+
+print(ranking(location(data_import())))
 # df = pd.DataFrame({'Titles': data_import()})
 # df.to_csv('titles.csv', index=False, encoding='utf-8')
