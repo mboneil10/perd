@@ -10,7 +10,7 @@ import pandas as pd
 def data_import():
     titles = []
     driver = webdriver.Chrome(ChromeDriverManager().install())
-    page = "https://podbay.fm/podcast/1194755213"
+    page = "https://www.stitcher.com/podcast/crime-in-sports/small-town-murder"
     driver.get(page)
     content = driver.page_source
     data = BeautifulSoup(content, features="html.parser")
